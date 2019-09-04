@@ -9,7 +9,8 @@ class Category extends Component {
 
     state = {
         boardCount_ViewOnePage: '5',
-        page: '1'
+        page: '1',
+        pageLevel : '0'
     };
 
     componentDidMount() {
@@ -59,17 +60,17 @@ class Category extends Component {
                 </div>
 
                 <div>
-                    <button value='-10' onClick={this.onNext}>&lt;</button>
-                    <button value='1' onClick={this.onReload}>1</button>
-                    <button value='2' onClick={this.onReload}>2</button>
-                    <button value='3' onClick={this.onReload}>3</button>
-                    <button value='4' onClick={this.onReload}>4</button>
-                    <button value='5' onClick={this.onReload}>5</button>
-                    <button value='6' onClick={this.onReload}>6</button>
-                    <button value='7' onClick={this.onReload}>7</button>
-                    <button value='8' onClick={this.onReload}>8</button>
-                    <button value='9' onClick={this.onReload}>9</button>
-                    <button value='10' onClick={this.onNext}>&gt;</button>
+                    <button value='-10' onClick={this.onDown}>&lt;</button>
+                    <button value={10 * this.state.pageLevel + 1} onClick={this.onReload}>{10 * this.state.pageLevel + 1}</button>
+                    <button value={10 * this.state.pageLevel + 2} onClick={this.onReload}>{10 * this.state.pageLevel + 2}</button>
+                    <button value={10 * this.state.pageLevel + 3} onClick={this.onReload}>{10 * this.state.pageLevel + 3}</button>
+                    <button value={10 * this.state.pageLevel + 4} onClick={this.onReload}>{10 * this.state.pageLevel + 4}</button>
+                    <button value={10 * this.state.pageLevel + 5} onClick={this.onReload}>{10 * this.state.pageLevel + 5}</button>
+                    <button value={10 * this.state.pageLevel + 6} onClick={this.onReload}>{10 * this.state.pageLevel + 6}</button>
+                    <button value={10 * this.state.pageLevel + 7} onClick={this.onReload}>{10 * this.state.pageLevel + 7}</button>
+                    <button value={10 * this.state.pageLevel + 8} onClick={this.onReload}>{10 * this.state.pageLevel + 8}</button>
+                    <button value={10 * this.state.pageLevel + 9} onClick={this.onReload}>{10 * this.state.pageLevel + 9}</button>
+                    <button value='10' onClick={this.onUp}>&gt;</button>
                 </div>
             </div>
         );
@@ -94,9 +95,18 @@ class Category extends Component {
         });
     }
 
-    onNext = event => {
+    onDown = () => {
+        if(this.state.pageLevel <= 0){
+            return;
+        }
         this.setState({
-            page: this.state.page + event.target.value
+            pageLevel: this.state.pageLevel - 1
+        });
+    }
+
+    onUp = () => {
+        this.setState({
+            pageLevel: this.state.pageLevel + 1
         });
     }
 

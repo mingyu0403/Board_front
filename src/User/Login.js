@@ -50,14 +50,20 @@ class Login extends Component {
     }
 
     onLogin = async () => {
-        let isUserLoginSuccess = await this.props.stores.UserStore.loginUser(this.state.account, this.state.password);
-        if(isUserLoginSuccess){
+        let isExistAccount = await this.props.stores.UserStore.existUser(this.state.account);
+        if(!isExistAccount){
+            alert('해당 아이디는 존재하지 않는 아이디입니다.');
+            return;
+        }
+
+        await this.props.stores.UserStore.loginUser(this.state.account, this.state.password);
+        if(this.props.stores.UserStore.user){
             this.setState({
                 ...this.state,
                 goToHome: true
             })
         } else {
-            window.alert("아이디 또는 비밀번호가 맞지 않습니다.");
+            window.alert("비밀번호가 맞지 않습니다.");
         }
     }
 
